@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.AppointmentMapper">
+
+    <select id="getAppointmentById" resultType="cn.est.pojo.Appointment">
+        select
+                id as id,
+                appointCode as appointCode,
+                userId as userId,
+                phone as phone,
+                appintDate as appintDate,
+                temporalInterval as temporalInterval,
+                adress as adress,
+                status as status,
+                createdUserId as createdUserId,
+                updatedUserId as updatedUserId,
+                creatdTime as creatdTime,
+                updatedTime as updatedTime,
+                isDelete as isDelete
+        from appointment
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <insert id="insertAppointment" parameterType="cn.est.pojo.Appointment"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into appointment(
+                        appointCode,
+                        userId,
+                        phone,
+                        appintDate,
+                        temporalInterval,
+                        adress,
+                        status,
+                        createdUserId,
+                        updatedUserId,
+                        creatdTime,
+                        updatedTime,
+                        isDelete)
+        values(
+                     #{appointCode},
+                     #{userId},
+                     #{phone},
+                     #{appintDate},
+                     #{temporalInterval},
+                     #{adress},
+                     #{status},
+                     #{createdUserId},
+                     #{updatedUserId},
+                     #{creatdTime},
+                     #{updatedTime},
+                    #{isDelete})
+    </insert>
+
+</mapper>

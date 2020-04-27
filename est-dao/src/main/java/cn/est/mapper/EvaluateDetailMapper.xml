@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.EvaluateDetailMapper">
+
+    <insert id="insertEvaluateDetail" parameterType="cn.est.pojo.EvaluateDetail">
+        insert into evaluate_detail(
+                        evaluateId,
+                        malfId,
+                        optionId,
+                        optionName,
+                        createdUserId,
+                        updatedUserId,
+                        creatdTime,
+                        updatedTime,
+                        isDelete)
+        values(
+                     #{evaluateId},
+                     #{malfId},
+                     #{optionId},
+                     #{optionName},
+                     #{createdUserId},
+                     #{updatedUserId},
+                     #{creatdTime},
+                     #{updatedTime},
+                    #{isDelete})
+    </insert>
+
+    <!-- 根据评估信息id，查询评估详情数据 -->
+    <select id="selectListByEId" parameterType="Long" resultType="cn.est.dto.EvaluateDetailDto">
+        select t.id,t.evaluateId,t.evaluateId,t.optionId,t.optionName
+        from evaluate_detail as t
+        where t.evaluateId = #{evaluateId}
+          and t.isDelete = 0
+    </select>
+</mapper>

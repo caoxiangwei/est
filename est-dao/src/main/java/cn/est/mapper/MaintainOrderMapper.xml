@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.MaintainOrderMapper">
+
+
+    <insert id="insertMaintainOrder" parameterType="cn.est.pojo.MaintainOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into maintain_order(
+                        serialNo,
+                        orderNo,
+                        userId,
+                        modelId,
+                        evaluateId,
+                        subscription,
+                        price,
+                        status,
+                        isComment,
+                        cancelReason,
+                        createdUserId,
+                        updatedUserId,
+                        creatdTime,
+                        updatedTime,
+                        isDelete)
+        values(
+                     #{serialNo},
+                     #{orderNo},
+                     #{userId},
+                     #{modelId},
+                     #{evaluateId},
+                     #{subscription},
+                     #{price},
+                     #{status},
+                     #{isComment},
+                     #{cancelReason},
+                     #{createdUserId},
+                     #{updatedUserId},
+                     #{creatdTime},
+                     #{updatedTime},
+                    #{isDelete})
+    </insert>
+
+    <update id="updateMaintainOrder" parameterType="cn.est.pojo.MaintainOrder">
+        update maintain_order
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="serialNo != null and serialNo!=''">
+                serialNo=#{serialNo},
+            </if>
+            <if test="orderNo != null and orderNo!=''">
+                orderNo=#{orderNo},
+            </if>
+            <if test="userId != null">
+                userId=#{userId},
+            </if>
+            <if test="modelId != null">
+                modelId=#{modelId},
+            </if>
+            <if test="evaluateId != null">
+                evaluateId=#{evaluateId},
+            </if>
+            <if test="subscription != null">
+                subscription=#{subscription},
+            </if>
+            <if test="price != null">
+                price=#{price},
+            </if>
+            <if test="status != null">
+                status=#{status},
+            </if>
+            <if test="isComment != null">
+                isComment=#{isComment},
+            </if>
+            <if test="cancelReason != null and cancelReason!=''">
+                cancelReason=#{cancelReason},
+            </if>
+            <if test="createdUserId != null">
+                createdUserId=#{createdUserId},
+            </if>
+            <if test="updatedUserId != null">
+                updatedUserId=#{updatedUserId},
+            </if>
+            <if test="creatdTime != null">
+                creatdTime=#{creatdTime},
+            </if>
+            <if test="updatedTime != null">
+                updatedTime=#{updatedTime},
+            </if>
+            <if test="isDelete != null">
+                isDelete=#{isDelete}
+            </if>
+        </trim>
+    </update>
+
+
+    <!-- 根据订单编号查询订单Dto信息 -->
+    <select id="selectDtoByOrderNo" parameterType="String" resultType="cn.est.dto.MaintainOrderDto">
+      select t.id,t.serialNo,t.orderNo,t.userId,t.modelId,t.evaluateId,t.price,t.`status`,t.subscription
+        from maintain_order as t
+        where t.orderNo = #{orderNo}
+    </select>
+
+
+    <!-- 根据订单编号查询订单信息 -->
+    <select id="selectByOrderNo" parameterType="String" resultType="cn.est.pojo.MaintainOrder">
+      SELECT id AS id,
+         serialNo AS serialNo,
+         orderNo AS orderNo,
+         userId AS userId,
+         modelId AS modelId,
+         evaluateId AS evaluateId,
+         subscription AS subscription,
+         price AS price, STATUS AS STATUS,
+         isComment AS isComment,
+         cancelReason AS cancelReason,
+         createdUserId AS createdUserId,
+         updatedUserId AS updatedUserId,
+         creatdTime AS creatdTime,
+         updatedTime AS updatedTime,
+         isDelete AS isDelete
+        FROM maintain_order
+        where orderNo = #{orderNo}
+    </select>
+</mapper>

@@ -1,0 +1,94 @@
+spring:
+  #数据库
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/est?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.jdbc.Driver
+
+  #redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+  #连接0库
+    database: 0
+  #连接池配置
+  pool:
+    #连接池最大连接数（使用负值表示没有限制）
+    max-active: 8
+    #连接池最大阻塞等待时间（使用负值表示没有限制）
+    max-wait: -1
+    #连接池中的最大空闲连接
+    max-idle: 8
+    #连接池中的最小空闲连接
+    min-idle: 0
+  #连接超时时间（毫秒）
+  timeout: 3000
+
+
+#配置支付宝支付参数
+alipay:
+  appID: 2016100200643488
+  privateKey: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC5pJaMzr16W6T8Nu/xZorDcL5rcpcTgzDeBU2Z3ozs6LsaJ4Frwt2xDTMYlM8Ob3va8DmJf57VQLB6jKlFZ02bXgGwAXFrqQ+LIhDJAS1ycH0xdPtd02dbx571Ag95ikC8nt+EmyQj4W32R2SkCdpf4V89hTQMtFsEsRcb9d+/L/SvPPu9fdtfOKdf46N2lI9xOaeigKUeEoJuAdwODKvSr/DgI3dEDakHx4uejxMhQpv3uTdR2JzoWqm6dlpKvZ/ZrmRdO5ZlloPn7chq95nJpGkSTo1ZrnB9W3leP7b0IJRZ+NuInZRinXKlDxU6A9pCS44RGeZIlRC9fOhqiBERAgMBAAECggEAEl0ws18kKT11lamNlNCy+2BkxdZBEaIRrHTT11vHjwv6rjyoNdPCAGiw3EakMOZgVykaV/qy6J+MlaLif8YXTD5BZnrOEHtZ2UaWaHvgVgjAqarLzt1BxTd7BvucMka13rLMo56BNbdwHEO1tfBvlLqDpF9P5c3VjyJBifeJmazmn1ayEc13d78ljcn3LkaJqQxUF3F6WD/yMHHOuhd6pe3SIzy4w36oXESMaUBOazUBjl4dMT0tkaY8rnpFbHvYqDwiLZPKSwU7AqHpgJ3W2fOU1m17fNXAwtpelZZAd1w5qVmOMHzAV/L68FyN59hPkaJ6xDlW7Jn9DZ03uk//wQKBgQDfx1bs9gT68J0BY8pQusXykGOVHCQ4laLKSL3j/5tkfCjrBGSrryieZQnwq3JeojGeCK3iP3FBjtHy+xNUBr6sUgRXkGHC5ynKOfQ4cr7MnmfBtLD7B5Wc/t77JtCeIMVIg56e7m8je35ZKrCp2OtXkJISsmxAIm89o0Fn+gAHOQKBgQDUX4jPihY5qpDbN4wTgQVOWmt9MM7KDRCTXe5GAm4XJYs+1k0wRGbYDf5MkvhjpPU9xVurBekzWvaYeL6uBRS+N9P4RyVpPUnbNdD2qCB/dwleCUvVwOP3wnCXBEOeY5QeUxYPMIOfgqbIym5IdMqp3k3wx299PexD0Qz4suHAmQKBgQC3K2fPlqEE9qbNWG1mHzugDOg2SU6ssm8JvPkSA0uiuK6VkIcGsN1Cqdm1EeEP7RtIDDqokt2Vl93qUfHEObEhRBEhy6D59FWUnlN1URc0TgUH3WtwTwj79PN4CJGCnbheXr4bwXdfR9poCjWJEXGxvziR7VIGPSlo/pSvE0eqoQKBgEmJbxEWKo37Pr95o3pZcaHo81FdJi2WiofMvaXmT4KaUHYItJ+i/82OQuD2/yVZyEWEYjJ9EHvk4oB3RudxAPbA1BgjYpPnUfyizOGr49zfNhImu+ifKxDudhgEtPlSV8aMVJYb4WfJUME0Py29qzNYs7pNBJDkcTwmVgyDvGH5AoGBAKIUq8zP7HdrFnVIR+MejRbjUuTeRMVVc2F9WPXeJ/I/yJH7WFqxyjegAnqbNIx5hEMMVN9oerKR6y+kZqs7atOcJjYmYZTdM2QqZCBAp+0ahzfXsqC7PXiVV33gMzcg7LBKqm0udr9uuF7uTqfTJyopV82k7XOz/NFSB10DFF+P
+  publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuaSWjM69eluk/Dbv8WaKw3C+a3KXE4Mw3gVNmd6M7Oi7GieBa8LdsQ0zGJTPDm972vA5iX+e1UCweoypRWdNm14BsAFxa6kPiyIQyQEtcnB9MXT7XdNnW8ee9QIPeYpAvJ7fhJskI+Ft9kdkpAnaX+FfPYU0DLRbBLEXG/Xfvy/0rzz7vX3bXzinX+OjdpSPcTmnooClHhKCbgHcDgyr0q/w4CN3RA2pB8eLno8TIUKb97k3Udic6FqpunZaSr2f2a5kXTuWZZaD5+3IaveZyaRpEk6NWa5wfVt5Xj+29CCUWfjbiJ2UYp1ypQ8VOgPaQkuOERnmSJUQvXzoaogREQIDAQAB
+  accountPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt4wSbfX7WG9k8wSzfPiN0s6ibU12F3dL0BDcewhvReWmEmMtRkedPZNjXedfZ6wujDWeNtKa9zGOhI0m4rtWsGeInmXr/N2uBFN9TtImWt6XZ8OwuZq9gXxAvCl5IOJjVg5lo1aksOB4eFOB8dYcW0iEE/CjZSAImRAx48cVxCIjOlV8og6H15Om3N8qJ/aoJGf75Xy4SPOYUJPJvJipCGMK9erP7K70iED5EEiSom3KR4k7Sj8IA3dbq4cmUr34SwtvuqcQzVwGIaUBHNbjFGkze4B6Qln0Szxu/f5Mib6d8dF/ykBMeLNZENEHfUVHv6mcXjxtyyqQRdbuGTrXDwIDAQAB
+  notifyUrl: http://f269063x51.zicp.vip:55843/est/api/pay/alipay/notify
+  returnUrl: http://f269063x51.zicp.vip:55843/est/api/pay/alipay/return
+  url: https://openapi.alipaydev.com/gateway.do
+  charset: UTF-8
+  format: json
+  signType: RSA2
+  paymentSuccessUrl: http://localhost:8080/confirmation
+  paymentFailureUrl:
+  product_code: FAST_INSTANT_TRADE_PAY
+  timeout_express: 10m
+
+
+#oss
+oss:
+  #连接OSS地址
+  endPoint: oss-cn-beijing.aliyuncs.com/
+  #连接Key
+  accessKeyId: LTAI1upAMVRA7TCF
+  #连接Secret
+  accessKeySecret: dzb7Syzildnj2on2OBq6TPmy5oZ0BV
+  #存储空间名称
+  bucketName: ljx-bdqn
+  #OSS文件访问域名
+  ossWebUrl: https://ljx-bdqn.oss-cn-beijing.aliyuncs.com/
+
+
+#微信
+wechat:
+  access_token_url: https://api.weixin.qq.com/sns/oauth2/access_token
+  appid: wx9168f76f000a0d4c
+  secret: 8ba69d5639242c3bd3a69dffe84336c1
+  code: code
+  grant_type: authorization_code
+  success_url: http://localhost:8080/index.html
+  open_url: https://open.weixin.qq.com/connect/qrconnect
+  redirect_uri: http://localhost:8080/est/api/user/wechat/callback
+  response_type: code
+  scope: snsapi_login
+  state: STATE#wechat_redirect
+
+
+
+#阿里云短信
+ali:
+ sms:
+   #连接Key
+   accessKeyId: LTAI4FjxqvC5wkZsUY5336DW
+   #连接Secret
+   accessKeySecret: N4BZB7zBZLuSURpnfBuGqTm5VbS2Vp
+   #模板
+   templateCode: SMS_173760365
+   #签名
+   signName: 二手兔
+   #短信产品域名
+   domain: dysmsapi.aliyuncs.com
+   #版本-固定值
+   version: 2017-05-25
+   #地区-默认即可
+   regionId: default

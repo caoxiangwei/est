@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.MalfunctionOptionsMapper">
+
+    <select id="getMalfunctionOptionsById" resultType="cn.est.pojo.MalfunctionOptions">
+        select
+                id as id,
+                modelId as modelId,
+                malfId as malfId,
+                optionName as optionName,
+                isHint as isHint,
+                hintInfo as hintInfo,
+                hintImg as hintImg,
+                processType as processType,
+                ratio as ratio,
+                createdUserId as createdUserId,
+                updatedUserId as updatedUserId,
+                creatdTime as creatdTime,
+                updatedTime as updatedTime,
+                isDelete as isDelete
+        from malfunction_options
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <!-- 根据故障id查询维修选项 -->
+    <select id="selectListByMalfId" parameterType="Long" resultType="cn.est.dto.MalfunctionOptionsDto">
+        select t.id,t.malfId,t.optionName,t.isHint,t.hintInfo,t.hintImg
+        from malfunction_options as t
+        where t.malfId = #{malfId}
+          and t.isDelete = 0
+    </select>
+</mapper>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.UsersMapper">
+
+    <select id="getUsersById" resultType="cn.est.pojo.Users">
+        select
+        id as id,
+        account as account,
+        password as password,
+        salt as salt,
+        userName as userName,
+        sex as sex,
+        isAuthentication as isAuthentication,
+        name as name,
+        cardNo as cardNo,
+        faceUrl as faceUrl,
+        openId as openId,
+        bindStatus as bindStatus,
+        bindTime as bindTime,
+        updatedUserId as updatedUserId,
+        creatdTime as creatdTime,
+        updatedTime as updatedTime,
+        isDelete as isDelete
+        from users
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getUsersListByMap" resultType="cn.est.pojo.Users" parameterType="java.util.Map">
+        select
+        id as id,
+        account as account,
+        password as password,
+        salt as salt,
+        userName as userName,
+        sex as sex,
+        isAuthentication as isAuthentication,
+        name as name,
+        cardNo as cardNo,
+        faceUrl as faceUrl,
+        openId as openId,
+        bindStatus as bindStatus,
+        bindTime as bindTime,
+        updatedUserId as updatedUserId,
+        creatdTime as creatdTime,
+        updatedTime as updatedTime,
+        isDelete as isDelete
+        from users
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+            <if test="account != null and account!=''">
+                and account=#{account}
+            </if>
+            <if test="password != null and password!=''">
+                and password=#{password}
+            </if>
+            <if test="salt != null and salt!=''">
+                and salt=#{salt}
+            </if>
+            <if test="userName != null and userName!=''">
+                and userName=#{userName}
+            </if>
+            <if test="sex != null">
+                and sex=#{sex}
+            </if>
+            <if test="isAuthentication != null">
+                and isAuthentication=#{isAuthentication}
+            </if>
+            <if test="name != null and name!=''">
+                and name=#{name}
+            </if>
+            <if test="cardNo != null and cardNo!=''">
+                and cardNo=#{cardNo}
+            </if>
+            <if test="faceUrl != null and faceUrl!=''">
+                and faceUrl=#{faceUrl}
+            </if>
+            <if test="openId != null and openId!=''">
+                and openId=#{openId}
+            </if>
+            <if test="bindStatus != null">
+                and bindStatus=#{bindStatus}
+            </if>
+            <if test="null!=bindTime">
+                and bindTime=#{bindTime}
+            </if>
+            <if test="updatedUserId != null">
+                and updatedUserId=#{updatedUserId}
+            </if>
+            <if test="null!=creatdTime">
+                and creatdTime=#{creatdTime}
+            </if>
+            <if test="null!=updatedTime">
+                and updatedTime=#{updatedTime}
+            </if>
+            <if test="isDelete != null">
+                and isDelete=#{isDelete}
+            </if>
+        </trim>
+        <if test="beginPos != null and pageSize != null ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+
+    <insert id="insertUsers" parameterType="cn.est.pojo.Users" useGeneratedKeys="true" keyProperty="id">
+        insert into users(
+                        account,
+                        password,
+                        salt,
+                        userName,
+                        sex,
+                        isAuthentication,
+                        name,
+                        cardNo,
+                        faceUrl,
+                        openId,
+                        bindStatus,
+                        bindTime,
+                        updatedUserId,
+                        creatdTime,
+                        updatedTime,
+                        isDelete)
+        values(
+                     #{account},
+                     #{password},
+                     #{salt},
+                     #{userName},
+                     #{sex},
+                     #{isAuthentication},
+                     #{name},
+                     #{cardNo},
+                     #{faceUrl},
+                     #{openId},
+                     #{bindStatus},
+                     #{bindTime},
+                     #{updatedUserId},
+                     #{creatdTime},
+                     #{updatedTime},
+                    #{isDelete})
+    </insert>
+
+    <update id="updateUsers" parameterType="cn.est.pojo.Users">
+        update users
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="account != null and account!=''">
+                account=#{account},
+            </if>
+            <if test="password != null and password!=''">
+                password=#{password},
+            </if>
+            <if test="salt != null and salt!=''">
+                salt=#{salt},
+            </if>
+            <if test="userName != null and userName!=''">
+                userName=#{userName},
+            </if>
+            <if test="sex != null">
+                sex=#{sex},
+            </if>
+            <if test="isAuthentication != null">
+                isAuthentication=#{isAuthentication},
+            </if>
+            <if test="name != null and name!=''">
+                name=#{name},
+            </if>
+            <if test="cardNo != null and cardNo!=''">
+                cardNo=#{cardNo},
+            </if>
+            <if test="faceUrl != null and faceUrl!=''">
+                faceUrl=#{faceUrl},
+            </if>
+            <if test="openId != null and openId!=''">
+                openId=#{openId},
+            </if>
+            <if test="bindStatus != null">
+                bindStatus=#{bindStatus},
+            </if>
+            <if test="bindTime != null">
+                bindTime=#{bindTime},
+            </if>
+            <if test="updatedUserId != null">
+                updatedUserId=#{updatedUserId},
+            </if>
+            <if test="creatdTime != null">
+                creatdTime=#{creatdTime},
+            </if>
+            <if test="updatedTime != null">
+                updatedTime=#{updatedTime},
+            </if>
+            <if test="isDelete != null">
+                isDelete=#{isDelete}
+            </if>
+        </trim>
+    </update>
+
+
+
+    <!-- 根据手机号查询用户信息 -->
+    <select id="selectByPhone" parameterType="String" resultType="cn.est.dto.UsersDto">
+      select t.id,t.account,t.userName,t.sex,t.faceUrl,t.salt
+      from users as t
+      where t.account = #{phone}
+    </select>
+
+    <!-- 根据openId查询用户信息 -->
+    <select id="selectByOpenId" parameterType="String" resultType="cn.est.dto.UsersDto">
+      select t.id,t.account,t.userName,t.sex,t.faceUrl,t.salt
+      from users as t
+      where t.openId = #{openId}
+    </select>
+
+    <!-- 根据账号、密码查询用户信息 -->
+    <select id="selectByAccountAndPass" resultType="cn.est.dto.UsersDto">
+      select t.id,t.account,t.userName,t.sex,t.faceUrl,t.salt
+      from users as t
+      where t.account = #{account}
+      and t.password = #{password}
+    </select>
+
+
+</mapper>

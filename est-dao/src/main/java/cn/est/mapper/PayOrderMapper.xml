@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.PayOrderMapper">
+
+    <insert id="insertPayOrder" parameterType="cn.est.pojo.PayOrder">
+        insert into pay_order(
+                        orderNo,
+                        payNo,
+                        aliTradeNo,
+                        userId,
+                        price,
+                        payType,
+                        status,
+                        payChannel,
+                        createdUserId,
+                        updatedUserId,
+                        creatdTime,
+                        updatedTime,
+                        isDelete)
+        values(
+                     #{orderNo},
+                     #{payNo},
+                     #{aliTradeNo},
+                     #{userId},
+                     #{price},
+                     #{payType},
+                     #{status},
+                     #{payChannel},
+                     #{createdUserId},
+                     #{updatedUserId},
+                     #{creatdTime},
+                     #{updatedTime},
+                    #{isDelete})
+    </insert>
+
+    <update id="updatePayOrder" parameterType="cn.est.pojo.PayOrder">
+        update pay_order
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="orderNo != null and orderNo!=''">
+                orderNo=#{orderNo},
+            </if>
+            <if test="payNo != null and payNo!=''">
+                payNo=#{payNo},
+            </if>
+            <if test="aliTradeNo != null and aliTradeNo!=''">
+                aliTradeNo=#{aliTradeNo},
+            </if>
+            <if test="userId != null">
+                userId=#{userId},
+            </if>
+            <if test="price != null">
+                price=#{price},
+            </if>
+            <if test="payType != null">
+                payType=#{payType},
+            </if>
+            <if test="status != null">
+                status=#{status},
+            </if>
+            <if test="payChannel != null">
+                payChannel=#{payChannel},
+            </if>
+            <if test="createdUserId != null">
+                createdUserId=#{createdUserId},
+            </if>
+            <if test="updatedUserId != null">
+                updatedUserId=#{updatedUserId},
+            </if>
+            <if test="creatdTime != null">
+                creatdTime=#{creatdTime},
+            </if>
+            <if test="updatedTime != null">
+                updatedTime=#{updatedTime},
+            </if>
+            <if test="isDelete != null">
+                isDelete=#{isDelete}
+            </if>
+        </trim>
+    </update>
+
+
+
+    <!-- 根据支付订单编号查询支付订单信息 -->
+    <select id="selectByPayNo" parameterType="String" resultType="cn.est.pojo.PayOrder">
+        select t.id,t.orderNo,t.payNo,t.price,t.payType,t.payChannel,t.aliTradeNo,t.userId,t.`status`,t.creatdTime
+        from pay_order as t
+        where t.payNo = #{payNo}
+          and t.isDelete = 0
+    </select>
+</mapper>

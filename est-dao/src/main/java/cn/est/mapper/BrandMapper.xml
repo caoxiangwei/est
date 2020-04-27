@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.BrandMapper">
+
+
+    <!-- 查询当前品牌对应的商品 -->
+    <select id="selectListByCId" parameterType="Long" resultType="cn.est.dto.BrandDto">
+      select t.id,t.brandName,t.logo
+        from brand as t
+            left join brand_classify_relation as bcr on bcr.brandId = t.id
+            left join classify as c on c.id = bcr.classifyId
+        where c.id = #{classifyId}
+            and t.`status` = 1
+            and c.`status` = 1
+            and t.isDelete = 0
+            and c.isDelete = 0
+    </select>
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.MaintainOrderFlowMapper">
+
+
+    <insert id="insertMaintainOrderFlow" parameterType="cn.est.pojo.MaintainOrderFlow"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into maintain_order_flow(
+                        orderNo,
+                        orderStatus,
+                        orderStatusDesc,
+                        operationUId,
+                        operationName,
+                        createdUserId,
+                        updatedUserId,
+                        creatdTime,
+                        updatedTime,
+                        isDelete)
+        values(
+                     #{orderNo},
+                     #{orderStatus},
+                     #{orderStatusDesc},
+                     #{operationUId},
+                     #{operationName},
+                     #{createdUserId},
+                     #{updatedUserId},
+                     #{creatdTime},
+                     #{updatedTime},
+                    #{isDelete})
+    </insert>
+
+    <!-- 根据交易订单号查询流水信息 -->
+    <select id="selectByOrderNo" parameterType="String" resultType="cn.est.dto.MaintainOrderFlowDto">
+        select t.id,t.orderNo,t.orderStatus,t.orderStatusDesc, t.operationUId,t.operationName
+          ,date_format(t.creatdTime,'%Y-%m-%d %T') as operationTime
+        from maintain_order_flow as t
+        where t.orderNo = #{orderNo}
+          and t.isDelete = 0
+        order by t.creatdTime asc
+    </select>
+</mapper>

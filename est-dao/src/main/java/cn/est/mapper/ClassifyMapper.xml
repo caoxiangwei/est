@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.ClassifyMapper">
+
+    <!-- `查询所有分类 -->
+    <select id="selectList" resultType="cn.est.dto.ClassifyDto">
+      select t.id,t.classifyName,t.icon,t.bigIcon
+      from classify as t
+      where t.status = 1
+        and t.isDelete = 0
+    </select>
+</mapper>

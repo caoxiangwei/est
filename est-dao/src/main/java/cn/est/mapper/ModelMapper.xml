@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.ModelMapper">
+
+    <select id="getModelById" resultType="cn.est.pojo.Model">
+        select
+        id as id,
+        modelName as modelName,
+        brandId as brandId,
+        classifyId as classifyId,
+        exchangePrice as exchangePrice,
+        topPrice as topPrice,
+        faceImg as faceImg,
+        contentImg as contentImg,
+        description as description,
+        status as status,
+        createdUserId as createdUserId,
+        updatedUserId as updatedUserId,
+        creatdTime as creatdTime,
+        updatedTime as updatedTime,
+        isDelete as isDelete
+        from model
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <!-- 根据vo查询商品类型列表 -->
+    <select id="selectList" parameterType="cn.est.req.ModelReq" resultType="cn.est.dto.ModelDto">
+        select t.id,t.modelName,t.faceImg,t.contentImg,t.topPrice
+        from model as t
+            left join brand as b on b.id = t.brandId
+            left join classify as c on c.id = t.classifyId
+        where 1=1
+            <if test="brandId != null">
+                and t.brandId = #{brandId}
+            </if>
+            <if test="classifyId != null">
+                and t.classifyId = #{classifyId}
+            </if>
+            <if test="modelName != null and modelName != ''">
+                and t.modelName like CONCAT('%', #{modelName}, '%')
+            </if>
+            and t.`status` = 1
+            and t.isDelete = 0
+            and b.`status` = 1
+            and b.isDelete = 0
+            and c.`status` = 1
+            and c.isDelete = 0
+        <if test="beginPos != null and pageSize != null">
+            limit #{beginPos}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="getModelCount" resultType="Integer"  parameterType="cn.est.req.ModelReq">
+        select COUNT(*) from model as t
+        left join brand as b on b.id = t.brandId
+        left join classify as c on c.id = t.classifyId
+        <if test="brandId != null">
+            and t.brandId = #{brandId}
+        </if>
+        <if test="classifyId != null">
+            and t.classifyId = #{classifyId}
+        </if>
+        <if test="modelName != null and modelName != ''">
+            and t.modelName like CONCAT('%', #{modelName}, '%')
+        </if>
+        and t.`status` = 1
+        and t.isDelete = 0
+        and b.`status` = 1
+        and b.isDelete = 0
+        and c.`status` = 1
+        and c.isDelete = 0
+    </select>
+</mapper>

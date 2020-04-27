@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.est.mapper.EvaluateMapper">
+
+    <select id="getEvaluateById" resultType="cn.est.pojo.Evaluate">
+        select
+        id as id,
+        modelId as modelId,
+        subscription as subscription,
+        price as price,
+        remark as remark,
+        createdUserId as createdUserId,
+        updatedUserId as updatedUserId,
+        creatdTime as creatdTime,
+        updatedTime as updatedTime,
+        isDelete as isDelete
+        from evaluate
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+
+    <insert id="insertEvaluate" parameterType="cn.est.pojo.Evaluate" useGeneratedKeys="true" keyProperty="id">
+        insert into evaluate(
+                        modelId,
+                        subscription,
+                        price,
+                        remark,
+                        createdUserId,
+                        updatedUserId,
+                        creatdTime,
+                        updatedTime,
+                        isDelete)
+        values(
+                     #{modelId},
+                     #{subscription},
+                     #{price},
+                     #{remark},
+                     #{createdUserId},
+                     #{updatedUserId},
+                     #{creatdTime},
+                     #{updatedTime},
+                    #{isDelete})
+    </insert>
+
+</mapper>
